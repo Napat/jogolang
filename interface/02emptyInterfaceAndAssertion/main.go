@@ -1,4 +1,5 @@
 /*
+https://play.golang.org/p/Mt2p703Plx
 (1). Using of empty interface
 (2). Assertion: if / switch
 (3). Iterate over any type value of slice of emplty interface
