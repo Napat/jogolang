@@ -22,8 +22,8 @@ type cat struct {
 	annoying bool
 }
 
-func voice(a interface{}) {
-	//Assertion if
+func voice(a interface{}) { // (1)
+	//(2) Assertion if
 	if d, ok := a.(dog); ok {
 		fmt.Printf("Type: %T\n", d)
 	} else if c, ok := a.(cat); ok {
@@ -32,7 +32,7 @@ func voice(a interface{}) {
 		fmt.Printf("Type: unknown\n")
 	}
 
-	//Assertion: switch
+	//(2) Assertion: switch
 	switch a.(type) {
 	case dog:
 		fmt.Println(a.(dog).animal.sound)
@@ -44,6 +44,7 @@ func voice(a interface{}) {
 }
 
 func iterOverAnyTypeSliceInterface(t interface{}) {
+	//(3)
 	switch reflect.TypeOf(t).Kind() {
 	case reflect.Slice:
 		s := reflect.ValueOf(t)
@@ -64,7 +65,7 @@ func main() {
 	voice(fifi)
 	//Type: main.cat
 	//meow
-	critters := []interface{}{fufu, fifi}
+	critters := []interface{}{fufu, fifi} //(1)
 	fmt.Println(critters)
 	//[{{woof} true} {{meow} true}]
 	for _, cr := range critters {

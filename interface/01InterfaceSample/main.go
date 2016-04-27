@@ -37,7 +37,7 @@ type person struct {
 
 func (p person) String() string {
 	return fmt.Sprintf("%s: %d Zoo!", p.Name, p.Age)
-	//return fmt.Sprintf("try recure %s", p) // Error: will recur forever.
+	//return fmt.Sprintf("try recur %s", p) // Error: will recur forever.
 }
 
 // ByAge implements sort.Interface for []person based on the Age field.
