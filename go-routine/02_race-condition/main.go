@@ -26,10 +26,8 @@ func main() {
 func incrementor(s string) {
 	for i := 0; i < 3; i++ {
 		// Shared variable(without lock) will be cause of rase-condition
-		x := counter
-		x++
+		counter++
 		time.Sleep(time.Duration(rand.Intn(3)) * time.Millisecond)
-		counter = x
 		fmt.Println(s, i, "Counter:", counter)
 	}
 	wg.Done()
