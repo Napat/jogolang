@@ -1,7 +1,9 @@
 /*
-Race-condition sample, just try
-- go run -race main.go
-- go run main.go
+- Race-condition checking
+	+ go run -race main.go
+- mutex
+- atomicity
+	+ import("sync/atomic")
 */
 package main
 
@@ -13,7 +15,8 @@ import (
 )
 
 var wg sync.WaitGroup
-var counter int //global share variable
+var counter int64 //global share variable
+var mutex sync.Mutex
 
 func main() {
 	wg.Add(2)
@@ -25,10 +28,24 @@ func main() {
 
 func incrementor(s string) {
 	for i := 0; i < 3; i++ {
-		// Shared variable(without lock) will be cause of rase-condition
-		counter++
+
 		time.Sleep(time.Duration(rand.Intn(3)) * time.Millisecond)
+
+		/*//1. Shared variable(without lock) will cause rase-condition
+		counter++
 		fmt.Println(s, i, "Counter:", counter)
+		*/
+
+		//2. Mutex lock to solve race-condition
+		mutex.Lock()
+		counter++
+		fmt.Println(s, i, "Counter:", counter)
+		mutex.Unlock()
+
+		/*// 3. Atomicity
+		atomic.AddInt64(&counter, 1)
+		fmt.Println(s, i, "Counter:", counter)
+		*/
 	}
 	wg.Done()
 }
