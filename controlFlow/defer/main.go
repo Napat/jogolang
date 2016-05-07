@@ -1,3 +1,8 @@
+/*
+	- Init function
+	- Defer behavior
+*/
+
 package main
 
 import "fmt"
@@ -19,6 +24,10 @@ func defer02() {
 func defer03() (ret int) {
 	//defer func() { ret++ }()
 	return 1
+}
+
+func init() {
+	fmt.Println("Go automatic calling init function")
 }
 
 func main() {

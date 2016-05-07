@@ -1,7 +1,10 @@
 /*
   https://play.golang.org/p/78LH1I-l0i
-  -Defer/ Panic / Recover
-  -get line executing function: fileLine()
+  - Defer/ Panic / Recover
+  - Get line executing function: fileLine()
+
+	More panic sample
+	https://golang.org/src/encoding/json/encode.go?s=5584:5627#L127
 */
 
 package main
@@ -35,9 +38,6 @@ func f() (err error) {
 				panic(s)
 			}
 			err = r.(error) // forward error
-
-			//more example about panic
-			////https://golang.org/src/encoding/json/encode.go?s=5584:5627#L127
 		}
 	}()
 	g(0)
