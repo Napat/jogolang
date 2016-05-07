@@ -1,7 +1,7 @@
 /*
 - Race-condition checking
 	+ go run -race main.go
-- mutex
+- mutex (My preferred)
 - atomicity
 	+ import("sync/atomic")
 */
@@ -42,7 +42,8 @@ func incrementor(s string) {
 		fmt.Println(s, i, "Counter:", counter)
 		mutex.Unlock()
 
-		/*// 3. Atomicity
+		/* // 3. Atomicity
+		//Caution: Println still cause race-condition because shared variable
 		atomic.AddInt64(&counter, 1)
 		fmt.Println(s, i, "Counter:", counter)
 		*/
