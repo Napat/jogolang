@@ -43,6 +43,10 @@ It is a convention in Go to name interfaces with an -er suffix when the interfac
  All fields and methods of AnonymousField(inner-type) are promoted to the outer-type struct
  (8.1) Promoted fields act like ordinary fields of a struct except that
  they cannot be used as field names in composite literals of the struct.
+ Note:
+ Composite literals is vaiable declaration with initialize value using :=, ie,
+  a := 1
+	b := Struct1{ f1: "a", f2: "b"}
  (8.2) Given a struct type S and a type named T, promoted methods are included in the method set of the struct as follows:
 If S contains an anonymous field T, the method sets of S and *S both include promoted methods with receiver T.
 The method set of *S also includes promoted methods with receiver *T.
@@ -137,6 +141,7 @@ func main() {
 		Underling: 4,
 	}
 	fmt.Println(senior01)
+	fmt.Println(senior01.ID)	// (8.1) Promoted fields
 	senior01.Junior.Hello()
 	senior01.Junior.Notify()
 	senior01.Hello()
