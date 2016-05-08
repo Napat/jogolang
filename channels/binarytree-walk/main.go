@@ -11,17 +11,25 @@ import (
 	"golang.org/x/tour/tree"
 )
 
-const bTreeLen = 10
-
 // Walk walks the tree t sending all values
 // from the tree to the channel ch.
 func Walk(t *tree.Tree, ch chan int) {
-	if t == nil {
-		return
+	/*
+		*** Note ***
+		To recursion in anonymous function need to
+		declared function variable first.
+		So, cannot self-executing
+	*/
+	var walker func(*tree.Tree)
+	walker = func(tr *tree.Tree) {
+		for tr != nil {
+			walker(tr.Left)
+			ch <- tr.Value
+			tr = tr.Right
+		}
 	}
-	Walk(t.Left, ch)
-	ch <- t.Value
-	Walk(t.Right, ch)
+	walker(t)
+	close(ch)
 	return
 }
 
@@ -34,10 +42,10 @@ func Same(t1, t2 *tree.Tree) bool {
 	go Walk(t1, c1)
 	go Walk(t2, c2)
 
-	var v1, v2 int
-	for i := 0; i < bTreeLen; i++ {
-		v1, v2 = <-c1, <-c2
-		if v1 != v2 {
+	for v1 := range c1 {
+		v2, ok := <-c2
+		//ok for checking btree dimension
+		if v1 != v2 || !ok {
 			return false
 		}
 	}
@@ -54,8 +62,8 @@ func main() {
 	ch := make(chan int)
 	go Walk(t1, ch)
 
-	for i := 0; i < bTreeLen; i++ {
-		fmt.Print(<-ch, " ")
+	for v := range ch {
+		fmt.Print(v, " ")
 	}
 	fmt.Println()
 
