@@ -7,6 +7,10 @@ then all readers and writers must use synchronization to access the map.
 A mutex works fine for this.
 
 https://tour.golang.org/concurrency/9
+
+--Note--
+There are interested 3rd party concurrenct-map api:
+https://github.com/streamrail/concurrent-map
 */
 
 package main
