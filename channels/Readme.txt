@@ -63,6 +63,10 @@ func main() {
 			fmt.Println(<-c)
 		}
 		quit <- 0
+		/*
+		Or
+		use close(quit)	to take all tasks that selecting <-quit
+		*/
 	}()
 	fibonacci(c, quit)
 }
